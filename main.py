@@ -1,9 +1,7 @@
 """Main script of the project."""
 import yaml
 
-import yaml
-
-from src.data.import_data import import_clean_data
+from src.data.import_data import import_clean_data_s3
 from src.data.train_test_split import make_val_split
 from src.features.build_features import feature_engineering, label_encode_variable
 from src.models.train_evaluate import evaluate_rdmf
@@ -11,16 +9,14 @@ from src.models.train_evaluate import evaluate_rdmf
 with open("config.yaml", 'r') as stream:
     config = yaml.safe_load(stream)
 
-train_path = config['input']['url-public']['train']
-test_path = config['input']['url-public']['test']
-
 if __name__ == "__main__":
+
     with open("config.yml", 'r') as file_in:
         config = yaml.safe_load(file_in)
     bucket = config['minio']['bucket']
     location = config['minio']['path']
 
-    training_data, test_data = import_clean_data("avouacr", "diffusion/ensae-reproductibilite")
+    training_data, test_data = import_clean_data_s3("avouacr", "diffusion/ensae-reproductibilite")
 
     mean_age = round(training_data['Age'].mean())
     training_data = feature_engineering(training_data, mean_age)

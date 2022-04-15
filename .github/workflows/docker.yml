@@ -12,7 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref || github.ref_name }} 
+          ref: dockerisation
+          fetch-depth: 2
+      - run: git checkout HEAD^
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1

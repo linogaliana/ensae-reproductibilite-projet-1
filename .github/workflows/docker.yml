@@ -11,10 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          ref: dockerisation
-          fetch-depth: 2
-      - run: git checkout HEAD^
+      - run: git checkout origin/dockerisation
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1

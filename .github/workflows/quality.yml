@@ -1,7 +1,7 @@
 name: Python Linting
 on:
   push:
-    branches: [master]
+    branches: [master, dockerisation]
 jobs:
   build:
     runs-on: ubuntu-latest    

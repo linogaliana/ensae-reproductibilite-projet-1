@@ -1,14 +1,20 @@
 """Main script of the project."""
 import yaml
 
+import yaml
+
 from src.data.import_data import import_clean_data
 from src.data.train_test_split import make_val_split
 from src.features.build_features import feature_engineering, label_encode_variable
 from src.models.train_evaluate import evaluate_rdmf
 
+with open("config.yaml", 'r') as stream:
+    config = yaml.safe_load(stream)
+
+train_path = config['input']['url-public']['train']
+test_path = config['input']['url-public']['test']
 
 if __name__ == "__main__":
-
     with open("config.yml", 'r') as file_in:
         config = yaml.safe_load(file_in)
     bucket = config['minio']['bucket']

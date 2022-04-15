@@ -27,5 +27,9 @@ ADD main.py /
 ADD config.yaml /
 COPY src src/
 
+ENV QUARTO_VERSION="0.9.243"
+RUN wget "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.deb"
+sudo apt install ./quarto-0.9.243-linux-amd64.deb
+
 EXPOSE 5000
 CMD [ "python", "main.py"]

@@ -1,3 +1,5 @@
+"""Main script of the project."""
+import yaml
 
 import yaml
 
@@ -13,7 +15,12 @@ train_path = config['input']['url-public']['train']
 test_path = config['input']['url-public']['test']
 
 if __name__ == "__main__":
-    training_data, test_data = import_clean_data(train_path, test_path)
+    with open("config.yml", 'r') as file_in:
+        config = yaml.safe_load(file_in)
+    bucket = config['minio']['bucket']
+    location = config['minio']['path']
+
+    training_data, test_data = import_clean_data("avouacr", "diffusion/ensae-reproductibilite")
 
     mean_age = round(training_data['Age'].mean())
     training_data = feature_engineering(training_data, mean_age)

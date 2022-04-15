@@ -1,5 +1,6 @@
 """Main script of the project."""
 import yaml
+import pandas as pd
 
 from src.data.import_data import import_clean_data_s3
 from src.data.train_test_split import make_val_split
@@ -10,11 +11,6 @@ with open("config.yaml", 'r') as stream:
     config = yaml.safe_load(stream)
 
 if __name__ == "__main__":
-
-    with open("config.yml", 'r') as file_in:
-        config = yaml.safe_load(file_in)
-    bucket = config['minio']['bucket']
-    location = config['minio']['path']
 
     training_data, test_data = import_clean_data_s3("avouacr", "diffusion/ensae-reproductibilite")
 

@@ -11,12 +11,13 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh &
 # Make conda command available
 ENV PATH="/miniconda/bin:${PATH}"
 
+# Create conda env
+COPY environment.yml .
+RUN conda env create -f environment.yml
+
 # Copy project files on the Docker image
 WORKDIR /app
 COPY . /app
-
-# Create conda env
-RUN conda env create -f environment.yml
 
 # Make container listen on port 5000
 EXPOSE 5000

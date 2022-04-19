@@ -22,9 +22,9 @@ jobs:
           name: Report
           path: report.html
       - name: Install npm
-        uses: actions/setup-node@v2          
+        uses: actions/setup-node@v2
         with:
-          node-version: '12'        
+          node-version: '14'
       - name: Deploy to Netlify
         # NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID added in the repo's secrets
         env:
@@ -33,7 +33,6 @@ jobs:
         run: |
           mkdir -p public
           mv report.html public/index.html
-          npm init -y
           npm install --unsafe-perm=true netlify-cli -g
           netlify init
-          netlify deploy --message "Deploying website"
+          netlify deploy --prod --dir="public" --message "Deploy master"

@@ -41,13 +41,13 @@ rdmf.fit(X_train, y_train)
 La @fig-feature-importance représente l'importance des variables :
 
 ```{python}
-#| label: fig-feature-importance
-#| fig-cap: "Feature importance"
-
 feature_imp = pd.Series(rdmf.feature_importances_, index=training_data.iloc[:,1:].columns).sort_values(ascending=False)
 ```
 
 ```{python}
+#| label: fig-feature-importance
+#| fig-cap: "Feature importance"
+
 plt.figure(figsize=(10,6))
 sns.barplot(x=feature_imp, y=feature_imp.index)
 # Add labels to your graph

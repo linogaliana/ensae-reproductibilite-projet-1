@@ -3,13 +3,15 @@ title: "Comprendre les facteurs de survie sur le Titanic"
 subtitle: "Un rapport innovant"
 format:
   html:
-    theme: journal
     echo: false
     code-fold: true
     self-contained: true
     code-summary: "Show the code"
     warning: false
     message: false
+    theme:
+      - cosmo
+      - css/custom.scss
 jupyter: python3
 ---
 

@@ -15,6 +15,7 @@ WORKDIR /app
 COPY . /app
 
 # Create conda env
+COPY environment.yml .
 RUN conda env create -f environment.yml
 
 # Make Python interpreter from the conda env available

@@ -11,20 +11,19 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh &
 # Make conda command available
 ENV PATH="/miniconda/bin:${PATH}"
 
-# Define working directory in the Docker image
+# Copy project files on the Docker image
 WORKDIR /app
-
-# Copy project files in the Docker image
 COPY . /app
 
 # Create conda env
 COPY environment.yml .
 RUN conda env create -f environment.yml
 
-# Make Python interpreter from the conda env available
-ENV PATH="~/miniconda/envs/monenv/bin:${PATH}"
-
 # Make container listen on port 5000
 EXPOSE 5000
 
-CMD [ "python", "main.py"]
+# Make Python interpreter from "monenv" available
+ENV PATH="/miniconda/envs/monenv/bin:${PATH}"
+
+# Launch Python script at container startup
+CMD ["python", "main.py"]

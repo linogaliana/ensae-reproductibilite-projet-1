@@ -19,11 +19,17 @@ RUN conda env create -f environment.yml
 WORKDIR /app
 COPY . /app
 
-# Make container listen on port 5000
-EXPOSE 5000
+ENV QUARTO_VERSION="0.9.243"
+RUN wget "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.deb"
+RUN sudo apt install ./quarto-0.9.243-linux-amd64.deb
 
 # Make Python interpreter from "monenv" available
 ENV PATH="/miniconda/envs/monenv/bin:${PATH}"
+
+# Make container listen on port 5000
+EXPOSE 5000
+
+
 
 # Launch Python script at container startup
 CMD ["python", "main.py"]

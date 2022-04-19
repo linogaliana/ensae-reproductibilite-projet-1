@@ -5,7 +5,7 @@ RUN apt-get -y update && \
 
 # Install Miniconda
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh && \
-    bash Miniconda3-latest-Linux-x86_64.sh && \
+    bash Miniconda3-latest-Linux-x86_64.sh -b -p /miniconda && \
     rm -f Miniconda3-latest-Linux-x86_64.sh
 
 # Define working directory in the Docker image

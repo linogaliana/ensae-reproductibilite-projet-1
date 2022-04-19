@@ -8,7 +8,8 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh &
     bash Miniconda3-latest-Linux-x86_64.sh -b -p /miniconda && \
     rm -f Miniconda3-latest-Linux-x86_64.sh
 
-ENV PATH="/home/coder/local/bin/conda/bin:${PATH}"
+# Make conda command available
+ENV PATH="/miniconda/bin:${PATH}"
 
 # Define working directory in the Docker image
 WORKDIR /app

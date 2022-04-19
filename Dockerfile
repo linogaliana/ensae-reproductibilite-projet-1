@@ -15,7 +15,7 @@ WORKDIR /app
 COPY . /app
 
 # Create conda env
-RUN conda create -f environment.yml
+RUN conda env create -f environment.yml
 
 # Make Python interpreter from the conda env available
 ENV PATH="~/miniconda/envs/monenv/bin:${PATH}"

@@ -1,0 +1,105 @@
+---
+title: "Comprendre les facteurs de survie sur le Titanic"
+subtitle: "Un rapport innovant"
+format:
+  html:
+    echo: false
+    code-fold: true
+    self-contained: true
+    code-summary: "Show the code"
+jupyter: python3
+---
+
+Voici un rapport présentant quelques intuitions issues d'un modèle 
+_random forest_ sur le jeu de données `Titanic` entraîné et 
+déployé de manière automatique. 
+
+```{python}
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.ensemble import RandomForestClassifier
+
+import main
+
+X_train = main.X_train
+y_train = main.y_train
+training_data = main.training_data
+
+rdmf = RandomForestClassifier(n_estimators=20)
+rdmf.fit(X_train, y_train)
+```
+
+# Feature importance
+
+La @fig-feature-importance représente l'importance des variables :
+
+```{python}
+#| label: fig-feature-importance
+#| fig-cap: "Feature importance"
+
+feature_imp = pd.Series(rdmf.feature_importances_, index=training_data.iloc[:,1:].columns).sort_values(ascending=False)
+```
+
+```{python}
+plt.figure(figsize=(10,6))
+sns.barplot(x=feature_imp, y=feature_imp.index)
+# Add labels to your graph
+plt.xlabel('Feature Importance Score')
+plt.ylabel('Features')
+plt.title("Visualizing Important Features")
+plt.tight_layout()
+plt.show()
+```
+
+Celle-ci peut également être obtenue grâce à la librairie
+`shap`:
+
+```{python}
+#| echo : true
+
+import shap
+shap_values = shap.TreeExplainer(rdmf).shap_values(X_train)
+shap.summary_plot(shap_values, X_train, plot_type="bar", feature_names = training_data.iloc[:,1:].columns)
+```
+
+On peut également utiliser cette librairie pour
+interpréter la prédiction de notre modèle:
+
+```{python}
+# explain all the predictions in the test set
+explainer = shap.TreeExplainer(rdmf)
+
+# Calculate Shap values
+choosen_instance = main.X_test[15]
+shap_values = explainer.shap_values(choosen_instance)
+shap.initjs()
+shap.force_plot(explainer.expected_value[1], shap_values[1], choosen_instance, feature_names = training_data.iloc[:,1:].columns)
+```
+
+# Qualité prédictive du modèle
+
+La matrice de confusion est présentée sur la
+@fig-confusion
+
+```{python}
+#| label: fig-confusion
+#| fig-cap: "Matrice de confusion"
+
+from sklearn.metrics import confusion_matrix
+
+conf_matrix = confusion_matrix(main.y_test, rdmf.predict(main.X_test))
+
+
+plt.figure(figsize=(8,5))
+sns.heatmap(conf_matrix, annot=True)
+plt.title('Confusion Matrix')
+plt.tight_layout()
+```
+
+Ou, sous forme de tableau:
+
+```{python}
+pd.DataFrame(conf_matrix, columns=['Predicted','Observed'], index = ['Predicted','Observed']).to_html()
+```

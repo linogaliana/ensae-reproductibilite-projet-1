@@ -24,7 +24,7 @@ jobs:
       - uses: actions/upload-artifact@v1
         with:
           name: Report
-          path: report.*
+          path: report.ipynb
       - name: Install npm
         uses: actions/setup-node@v2
         with:

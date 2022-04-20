@@ -31,4 +31,4 @@ jobs:
     - name: pylint score
       run: |
         conda install pylint
-        pylint --fail-under=6 src
+        pylint --fail-under=5 src

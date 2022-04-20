@@ -12,13 +12,15 @@ format:
     theme:
       - cosmo
       - css/custom.scss
-  ipynb: default
+  #ipynb: default
 jupyter: python3
 ---
 
 Voici un rapport présentant quelques intuitions issues d'un modèle 
 _random forest_ sur le jeu de données `Titanic` entraîné et 
 déployé de manière automatique. 
+
+Il est possible de télécharger cette page sous format `Jupyter Notebook` [ici](./report.ipynb)
 
 ```{python}
 

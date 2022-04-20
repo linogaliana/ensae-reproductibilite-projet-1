@@ -17,10 +17,14 @@ jobs:
           ref: "dockerisation"
       - name: Render site
         run: quarto render report.qmd
+      - name: Trick to render in html
+        run: |
+          pip install jupytext
+          jupytext --to notebook report.qmd
       - uses: actions/upload-artifact@v1
         with:
           name: Report
-          path: report.html
+          path: report.*
       - name: Install npm
         uses: actions/setup-node@v2
         with:
@@ -33,6 +37,7 @@ jobs:
         run: |
           mkdir -p public
           mv report.html public/index.html
+          mv report.ipynb public/report.ipynb
           npm install --unsafe-perm=true netlify-cli -g
           netlify init
           netlify deploy --prod --dir="public" --message "Deploy master"

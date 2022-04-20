@@ -19,7 +19,7 @@ RUN conda env create -f environment.yml
 WORKDIR /app
 COPY . /app
 
-ENV QUARTO_VERSION="0.9.243"
+ENV QUARTO_VERSION="0.9.287"
 RUN wget "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.deb"
 RUN apt install ./quarto-0.9.243-linux-amd64.deb
 

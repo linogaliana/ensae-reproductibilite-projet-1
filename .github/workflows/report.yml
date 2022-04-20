@@ -17,10 +17,6 @@ jobs:
           ref: "dockerisation"
       - name: Render site
         run: quarto render report.qmd
-      - name: Trick to render in html
-        run: |
-          pip install jupytext
-          jupytext --to notebook report.qmd
       - uses: actions/upload-artifact@v1
         with:
           name: Report

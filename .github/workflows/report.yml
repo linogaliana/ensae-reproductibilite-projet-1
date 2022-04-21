@@ -14,8 +14,8 @@ jobs:
   steps:
     - uses: actions/checkout@v3
     - name: Render site
-    run: quarto render report.qmd
+      run: quarto render report.qmd
     - uses: actions/upload-artifact@v1
-    with:
-      name: Report
-      path: report.ipynb
+      with:
+        name: Report
+        path: report.ipynb

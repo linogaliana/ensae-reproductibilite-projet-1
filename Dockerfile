@@ -18,6 +18,11 @@ COPY . /app
 # Create conda env
 RUN conda env create -f environment.yml
 
+# Installation quarto
+ENV QUARTO_VERSION="0.9.287"
+RUN wget "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.deb"
+RUN apt install "./quarto-${QUARTO_VERSION}-linux-amd64.deb"
+
 # Make container listen on port 5000
 EXPOSE 5000
 

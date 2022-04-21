@@ -24,5 +24,10 @@ EXPOSE 5000
 # Make Python interpreter from "monenv" available
 ENV PATH="/miniconda/envs/monenv/bin:${PATH}"
 
+# Install quarto
+ENV QUARTO_VERSION="0.9.287"
+RUN wget "https://github.com/quarto-dev/quarto-cli/releases/download/v${QUARTO_VERSION}/quarto-${QUARTO_VERSION}-linux-amd64.deb"
+RUN apt install "./quarto-${QUARTO_VERSION}-linux-amd64.deb"
+
 # Launch Python script at container startup
 CMD ["python", "main.py"]

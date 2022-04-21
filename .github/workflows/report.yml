@@ -1,0 +1,21 @@
+name: Deploy as website
+
+on:
+  push:
+    branches:
+      - main
+      - master
+      - dev
+
+jobs:
+  build:
+  runs-on: ubuntu-latest
+  container: linogaliana/ensae-repro-docker:latest
+  steps:
+    - uses: actions/checkout@v3
+    - name: Render site
+    run: quarto render report.qmd
+    - uses: actions/upload-artifact@v1
+    with:
+      name: Report
+      path: report.ipynb
